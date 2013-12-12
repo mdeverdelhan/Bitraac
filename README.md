@@ -12,7 +12,7 @@ See also:
 (or _ToDo List_ if you prefer)
 
   * No limit orders
-  * Not enough overlays or indicators
+  * Not enough indicators
   * No more than a few algorithms
   * No streaming data
   * No influence on exchange rate
