@@ -16,6 +16,7 @@ See also:
   * No more than a few algorithms
   * No streaming data
   * No influence on exchange rate
+  * Not enough tests
 
 ## About
 
