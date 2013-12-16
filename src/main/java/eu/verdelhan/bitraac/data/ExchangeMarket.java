@@ -9,9 +9,8 @@ import com.xeiam.xchange.dto.marketdata.Trade;
 import com.xeiam.xchange.dto.marketdata.Trades;
 import com.xeiam.xchange.service.polling.PollingMarketDataService;
 import eu.verdelhan.bitraac.AlgorithmComparator;
-import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -101,6 +100,14 @@ public class ExchangeMarket {
     }
 
     /**
+     * Clears the history of the exchange.
+     * (i.e. removes all added trades and related periods)
+     */
+    public static void clearHistory() {
+        PREVIOUS_PERIODS.clear();
+    }
+
+    /**
      * Dump Bitstamp trades.
      */
     public static void dumpBitstampData() {
@@ -123,9 +130,9 @@ public class ExchangeMarket {
      */
     private static ArrayList<Trade> getLocalTrades() {
         ArrayList<Trade> trades = new ArrayList<Trade>();
+        CSVReader csvReader = null;
         try {
-            BufferedReader fileReader = new BufferedReader(new InputStreamReader(AlgorithmComparator.class.getClassLoader().getResourceAsStream("bitstamp_usd.14.csv")));
-            CSVReader csvReader = new CSVReader(fileReader, ',');
+            csvReader = new CSVReader(new FileReader(ExchangeMarket.class.getClassLoader().getResource("bitstamp_usd.14.csv").getPath()), ',');
             String[] line;
             while ((line = csvReader.readNext()) != null) {
                 Date timestamp = new Date(Long.parseLong(line[0]) * 1000);
@@ -135,7 +142,14 @@ public class ExchangeMarket {
                 trades.add(trade);
             }
         } catch (IOException ioe) {
-            Logger.getLogger(AlgorithmComparator.class.getName()).log(Level.SEVERE, "Unable to load trades from CSV", ioe);
+            Logger.getLogger(ExchangeMarket.class.getName()).log(Level.SEVERE, "Unable to load trades from CSV", ioe);
+        } finally {
+            if (csvReader != null) {
+                try {
+                    csvReader.close();
+                } catch (IOException ioe) {
+                }
+            }
         }
 
         if (!trades.isEmpty()) {
