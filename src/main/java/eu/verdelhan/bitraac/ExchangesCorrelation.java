@@ -29,6 +29,7 @@ public class ExchangesCorrelation {
         ArrayList<String[]> trades = getBistampTrades();
         addIndicators(trades);
         trades.add(0, getBitstampHeader());
+        trades.add(1, getUnits());
         exportToCSV(trades, "/home/user/dataCSV/btc/bitstamp_ind.csv");
 
         ExchangeMarket.clearHistory();
@@ -36,6 +37,7 @@ public class ExchangesCorrelation {
         trades = getMtgoxTrades();
         addIndicators(trades);
         trades.add(0, getMtgoxHeader());
+        trades.add(1, getUnits());
         exportToCSV(trades, "/home/user/dataCSV/btc/mtgox_ind.csv");
     }
 
@@ -76,6 +78,17 @@ public class ExchangesCorrelation {
             "mtg_amount",
             "mtg_ppo",
             "mtg_roc"
+        };
+    }
+
+    private static String[] getUnits() {
+        return new String[] {
+            "S",
+            "S",
+            "USD",
+            "BTC",
+            "",
+            ""
         };
     }
 
