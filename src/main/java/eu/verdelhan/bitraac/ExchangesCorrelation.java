@@ -30,7 +30,7 @@ public class ExchangesCorrelation {
         addIndicators(trades);
         trades.add(0, getBitstampHeader());
         trades.add(1, getUnits());
-        exportToCSV(trades, "/home/user/dataCSV/btc/bitstamp_ind.csv");
+        exportToCSV(trades, "D:/dataCSV/btc/bitstamp_ind.csv");
 
         ExchangeMarket.clearHistory();
 
@@ -38,7 +38,7 @@ public class ExchangesCorrelation {
         addIndicators(trades);
         trades.add(0, getMtgoxHeader());
         trades.add(1, getUnits());
-        exportToCSV(trades, "/home/user/dataCSV/btc/mtgox_ind.csv");
+        exportToCSV(trades, "D:/dataCSV/btc/mtgox_ind.csv");
     }
 
     private static void exportToCSV(ArrayList<String[]> data, String file) {
@@ -66,7 +66,8 @@ public class ExchangesCorrelation {
             "bstmp_price",
             "bstmp_amount",
             "bstmp_ppo",
-            "bstmp_roc"
+            "bstmp_roc",
+            "bstmp_roc1"
         };
     }
 
@@ -77,7 +78,8 @@ public class ExchangesCorrelation {
             "mtg_price",
             "mtg_amount",
             "mtg_ppo",
-            "mtg_roc"
+            "mtg_roc",
+            "mtg_roc1"
         };
     }
 
@@ -87,6 +89,7 @@ public class ExchangesCorrelation {
             "S",
             "USD",
             "BTC",
+            "",
             "",
             ""
         };
@@ -160,14 +163,27 @@ public class ExchangesCorrelation {
     private static String[] getIndicatorValues() {
         if (ExchangeMarket.isEnoughPeriods(20)) {
             return new String[] {
-                new PPO(ExchangeMarket.getPreviousPeriods(), 4, 12).execute().doubleValue() + "",
-                new ROC(ExchangeMarket.getPreviousPeriods(), 20).execute().doubleValue() + "",
+                new PPO(ExchangeMarket.getPreviousPeriods(), 10, 20).execute().doubleValue() + "",
+                new ROC(ExchangeMarket.getPreviousPeriods(), 2).execute().doubleValue() + "",
+                getRoc1() + ""
             };
         } else {
             return new String[]{
                 "",
+                "",
                 ""
             };
+        }
+    }
+
+    private static double getRoc1() {
+        double roc1 = new ROC(ExchangeMarket.getPreviousPeriods(), 2).execute().doubleValue();
+        if (roc1 > 5) {
+            return 1;
+        } else if (roc1 < -5) {
+            return -1;
+        } else {
+            return 0;
         }
     }
 }
