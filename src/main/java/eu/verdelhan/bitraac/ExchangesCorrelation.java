@@ -26,19 +26,18 @@ public class ExchangesCorrelation {
 
     public static void main(String[] args) {
 
-        ArrayList<String[]> trades = getBistampTrades();
-        addIndicators(trades);
-        trades.add(0, getBitstampHeader());
-        trades.add(1, getUnits());
-        exportToCSV(trades, "D:/dataCSV/btc/bitstamp_ind.csv");
+        ArrayList<String[]> bitstampTrades = getBistampTrades();
+        addIndicators(bitstampTrades);
 
         ExchangeMarket.clearHistory();
 
-        trades = getMtgoxTrades();
-        addIndicators(trades);
-        trades.add(0, getMtgoxHeader());
-        trades.add(1, getUnits());
-        exportToCSV(trades, "D:/dataCSV/btc/mtgox_ind.csv");
+        ArrayList<String[]> mtgoxTrades = getMtgoxTrades();
+        addIndicators(mtgoxTrades);
+
+        ArrayList<String[]> merged = TradesMerger.merge(bitstampTrades, mtgoxTrades);
+        addHeader(merged);
+
+        exportToCSV(merged, "D:/dataCSV/btc/merged.csv");
     }
 
     private static void exportToCSV(ArrayList<String[]> data, String file) {
@@ -59,40 +58,35 @@ public class ExchangesCorrelation {
         }
     }
 
-    private static String[] getBitstampHeader() {
-        return new String[] {
-            "bstmp_t1990",
-            "bstmp_unixtime",
+    private static void addHeader(ArrayList<String[]> trades) {
+        trades.add(0, new String[] {
+            "t1990",
+            "unixtime",
             "bstmp_price",
             "bstmp_amount",
             "bstmp_ppo",
             "bstmp_roc",
-            "bstmp_roc1"
-        };
-    }
-
-    private static String[] getMtgoxHeader() {
-        return new String[] {
-            "mtg_t1990",
-            "mtg_unixtime",
+            "bstmp_roc1",
             "mtg_price",
             "mtg_amount",
             "mtg_ppo",
             "mtg_roc",
             "mtg_roc1"
-        };
-    }
-
-    private static String[] getUnits() {
-        return new String[] {
+        });
+        trades.add(1, new String[] {
             "S",
             "S",
             "USD",
             "BTC",
             "",
             "",
+            "",
+            "USD",
+            "BTC",
+            "",
+            "",
             ""
-        };
+        });
     }
 
     private static void addIndicators(ArrayList<String[]> trades) {
