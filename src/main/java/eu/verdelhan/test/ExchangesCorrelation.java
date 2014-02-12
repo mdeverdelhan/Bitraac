@@ -1,23 +1,14 @@
 
-package eu.verdelhan.bitraac;
+package eu.verdelhan.test;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-import com.xeiam.xchange.currency.Currencies;
-import com.xeiam.xchange.dto.marketdata.Trade;
-import eu.verdelhan.bitraac.data.ExchangeMarket;
-import eu.verdelhan.bitraac.indicators.PPO;
-import eu.verdelhan.bitraac.indicators.ROC;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.joda.money.BigMoney;
-import org.joda.money.CurrencyUnit;
 
 /**
  * Prototype for echanges correlation test.
@@ -28,8 +19,6 @@ public class ExchangesCorrelation {
 
         ArrayList<String[]> bitstampTrades = getBistampTrades();
         addIndicators(bitstampTrades);
-
-        ExchangeMarket.clearHistory();
 
         ArrayList<String[]> mtgoxTrades = getMtgoxTrades();
         addIndicators(mtgoxTrades);
@@ -90,18 +79,18 @@ public class ExchangesCorrelation {
     }
 
     private static void addIndicators(ArrayList<String[]> trades) {
-        System.out.println("Adding indicators");
-        for (int i = 0; i < trades.size(); i++) {
-            String[] tradeStr = trades.get(i);
-            Trade trade = buildTrade(tradeStr[0], tradeStr[1], tradeStr[2]);
-            ExchangeMarket.addTrade(trade);
-            String[] indicators = getIndicatorValues();
-            String[] tradeWithIndic = new String[tradeStr.length + 1 + indicators.length];
-            tradeWithIndic[0] = get20yoUnixTime(Long.parseLong(tradeStr[0]));
-            System.arraycopy(tradeStr, 0, tradeWithIndic, 1, tradeStr.length);
-            System.arraycopy(indicators, 0, tradeWithIndic, 4, indicators.length);
-            trades.set(i, tradeWithIndic);
-        }
+//        System.out.println("Adding indicators");
+//        for (int i = 0; i < trades.size(); i++) {
+//            String[] tradeStr = trades.get(i);
+//            Trade trade = buildTrade(tradeStr[0], tradeStr[1], tradeStr[2]);
+//            ExchangeMarket.addTrade(trade);
+//            String[] indicators = getIndicatorValues();
+//            String[] tradeWithIndic = new String[tradeStr.length + 1 + indicators.length];
+//            tradeWithIndic[0] = get20yoUnixTime(Long.parseLong(tradeStr[0]));
+//            System.arraycopy(tradeStr, 0, tradeWithIndic, 1, tradeStr.length);
+//            System.arraycopy(indicators, 0, tradeWithIndic, 4, indicators.length);
+//            trades.set(i, tradeWithIndic);
+//        }
     }
 
     private static ArrayList<String[]> getBistampTrades() {
@@ -144,40 +133,7 @@ public class ExchangesCorrelation {
         return trades;
     }
 
-    private static Trade buildTrade(String unixtime, String usdPrice, String tradableAmount) {
-        Date timestamp = new Date(Long.parseLong(unixtime) * 1000);
-        BigMoney price = BigMoney.of(CurrencyUnit.USD, new BigDecimal(usdPrice));
-        return new Trade(null, new BigDecimal(tradableAmount), Currencies.BTC, Currencies.USD, price, timestamp, 0);
-    }
-
     private static String get20yoUnixTime(long unixtime) {
         return unixtime - 631152000 + "";
-    }
-
-    private static String[] getIndicatorValues() {
-        if (ExchangeMarket.isEnoughPeriods(20)) {
-            return new String[] {
-                new PPO(ExchangeMarket.getPreviousPeriods(), 10, 20).execute().doubleValue() + "",
-                new ROC(ExchangeMarket.getPreviousPeriods(), 2).execute().doubleValue() + "",
-                getRoc1() + ""
-            };
-        } else {
-            return new String[]{
-                "",
-                "",
-                ""
-            };
-        }
-    }
-
-    private static double getRoc1() {
-        double roc1 = new ROC(ExchangeMarket.getPreviousPeriods(), 2).execute().doubleValue();
-        if (roc1 > 5) {
-            return 1;
-        } else if (roc1 < -5) {
-            return -1;
-        } else {
-            return 0;
-        }
     }
 }

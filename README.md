@@ -1,22 +1,6 @@
-# Bitraac
+# test-ta4j
 
-... for **Bit**coin **Tra**ding **A**lgorithms **C**omparator.
-
-See also:
-
-  * [Algorithmic trading strategies](http://en.wikipedia.org/wiki/Algorithmic_trading#Strategies)
-  * [Technical indicators and overlays](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators)
-
-## Current restrictions
-
-(or _ToDo List_ if you prefer)
-
-  * No limit orders
-  * Not enough indicators
-  * No more than a few algorithms
-  * No streaming data
-  * No influence on exchange rate
-  * Not enough tests
+This repository has been recycled into a test project for the [ta4j](http://github.com/mdeverdelhan/ta4j) library.
 
 ## About
 

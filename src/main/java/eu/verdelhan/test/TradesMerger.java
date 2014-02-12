@@ -1,4 +1,4 @@
-package eu.verdelhan.bitraac;
+package eu.verdelhan.test;
 
 import java.util.ArrayList;
 import java.util.Collections;
