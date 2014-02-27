@@ -3,11 +3,10 @@ package eu.verdelhan.test;
 import au.com.bytecode.opencsv.CSVReader;
 import eu.verdelhan.ta4j.TimeSeries;
 import eu.verdelhan.ta4j.series.DefaultTimeSeries;
-import eu.verdelhan.ta4j.tick.DefaultTick;
+import eu.verdelhan.ta4j.ticks.DefaultTick;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +58,8 @@ public class CsvTradesLoader {
 				DateTime tradeTimestamp = new DateTime(Long.parseLong(tradeLine[0]) * 1000);
 				for (DefaultTick tick : ticks) {
 					if (tick.inPeriod(tradeTimestamp)) {
-						BigDecimal tradePrice = new BigDecimal(tradeLine[1]);
-						BigDecimal tradeAmount = new BigDecimal(tradeLine[2]);
+						double tradePrice = Double.parseDouble(tradeLine[1]);
+						double tradeAmount = Double.parseDouble(tradeLine[2]);
 						tick.addTrade(tradeAmount, tradePrice);
 					}
 				}
