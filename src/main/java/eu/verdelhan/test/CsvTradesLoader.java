@@ -20,9 +20,7 @@ import org.joda.time.Instant;
  */
 public class CsvTradesLoader {
 
-	List<DefaultTick> ticks;
-
-	public TimeSeries load(InputStream stream, String seriesName) {
+	public static TimeSeries load(InputStream stream, String seriesName) {
 		
 		CSVReader csvReader = null;
 		List<String[]> lines = null;
@@ -40,6 +38,7 @@ public class CsvTradesLoader {
             }
         }
 
+		List<DefaultTick> ticks = null;
 		if ((lines != null) && !lines.isEmpty()) {
 
 			// Getting the first and last trades timestamps
@@ -52,7 +51,7 @@ public class CsvTradesLoader {
 				endTime = new DateTime(beginInstant);
 			}
 			// Building the empty ticks
-			ticks = buildEmptyTicks(beginTime, endTime, 600);
+			ticks = buildEmptyTicks(beginTime, endTime, 300);
 			// Filling the ticks with trades
 			for (String[] tradeLine : lines) {
 				DateTime tradeTimestamp = new DateTime(Long.parseLong(tradeLine[0]) * 1000);
