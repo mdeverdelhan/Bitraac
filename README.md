@@ -1,6 +1,6 @@
-# test-ta4j
+# Ta4j examples
 
-This repository has been recycled into a test project for the [ta4j](http://github.com/mdeverdelhan/ta4j) library.
+This repository contains example codes using [ta4j](http://github.com/mdeverdelhan/ta4j) library.
 
 ## About
 

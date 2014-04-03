@@ -1,28 +1,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>eu.verdelhan</groupId>
-	<artifactId>test-ta4j</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <groupId>eu.verdelhan</groupId>
+    <artifactId>ta4j-examples</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-	<name>test-ta4j</name>
-	<description>Test project for ta4j</description>
+    <name>ta4j-examples</name>
+    <description>Project containing ta4j examples</description>
 
-	<dependencies>
-
-		<dependency>
-			<groupId>eu.verdelhan</groupId>
-			<artifactId>ta4j</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>net.sf.opencsv</groupId>
-			<artifactId>opencsv</artifactId>
-			<version>2.0</version>
-		</dependency>
-		
-	</dependencies>
+    <dependencies>
+        
+        <dependency>
+            <groupId>eu.verdelhan</groupId>
+            <artifactId>ta4j</artifactId>
+            <version>0.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.sf.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>2.0</version>
+        </dependency>
+        
+    </dependencies>
 
 </project>
