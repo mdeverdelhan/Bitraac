@@ -15,20 +15,21 @@ import eu.verdelhan.ta4j.strategies.JustBuyOnceStrategy;
 import eu.verdelhan.ta4j.strategies.StopGainStrategy;
 import eu.verdelhan.ta4j.strategies.StopLossStrategy;
 import eu.verdelhan.ta4j.strategies.SupportStrategy;
-import java.io.InputStream;
 import java.util.List;
 import org.joda.time.Period;
+import ta4jexamples.loaders.CsvTradesLoader;
 
 /**
- * Quickstart for ta4j
+ * Quickstart for ta4j.
+ * <p>
+ * Global example.
  */
 public class Quickstart {
-
 
 	public static void main(String[] args) {
 
 		// Getting a time series (from any provider: CSV, web service, etc.)
-		TimeSeries series = createTimeSeries();
+		TimeSeries series = CsvTradesLoader.loadBitstampSeries();
 
 
 		// Getting the close price of the ticks
@@ -95,11 +96,4 @@ public class Quickstart {
 		System.out.println("Total profit for our strategy: " + criterion.calculate(slicer.getSlice(lastSliceIndex), trades));
 		System.out.println("Total profit for reference strategy: " + criterion.calculate(slicer.getSlice(lastSliceIndex), referenceTrades));
 	}
-
-	private static TimeSeries createTimeSeries() {
-
-		InputStream is = Quickstart.class.getClassLoader().getResourceAsStream("bitstampUSD_from_20131125000000.csv");
-		return CsvTradesLoader.load(is, "foo_time_series");
-	}
-
 }

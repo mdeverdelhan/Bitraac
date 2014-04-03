@@ -1,5 +1,5 @@
 
-package ta4jexamples;
+package ta4jexamples.misc;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;

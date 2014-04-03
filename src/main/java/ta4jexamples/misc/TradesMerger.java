@@ -1,4 +1,4 @@
-package ta4jexamples;
+package ta4jexamples.misc;
 
 import java.util.ArrayList;
 import java.util.Collections;

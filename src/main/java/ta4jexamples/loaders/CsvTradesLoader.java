@@ -23,25 +23,16 @@ public class CsvTradesLoader {
 	/**
 	 * @return a time series from Bitstamp (bitcoin exchange) trades
 	 */
-	public static TimeSeries loadBitstampTrades()
-	{
-		InputStream is = CsvTradesLoader.class.getClassLoader().getResourceAsStream("bitstamp_trades_from_20131125_usd.csv");
-		return CsvTradesLoader.load(is, "bitcoin_series");
-	}
-
-	/**
-	 * @param stream an input stream
-	 * @param seriesName the name of the series
-	 * @return a time series
-	 */
-	public static TimeSeries load(InputStream stream, String seriesName) {
+	public static TimeSeries loadBitstampSeries() {
 
 		// Reading all lines of the CSV file
+		InputStream stream = CsvTradesLoader.class.getClassLoader().getResourceAsStream("bitstamp_trades_from_20131125_usd.csv");
 		CSVReader csvReader = null;
 		List<String[]> lines = null;
         try {
             csvReader = new CSVReader(new InputStreamReader(stream, Charset.forName("UTF-8")), ',');
 			lines = csvReader.readAll();
+			lines.remove(0); // Removing header line
         } catch (IOException ioe) {
             Logger.getLogger(CsvTradesLoader.class.getName()).log(Level.SEVERE, "Unable to load trades from CSV", ioe);
         } finally {
@@ -82,7 +73,7 @@ public class CsvTradesLoader {
 			removeEmptyTicks(ticks);
 		}
 
-		return new DefaultTimeSeries(seriesName, ticks);
+		return new DefaultTimeSeries("bitstamp_trades", ticks);
 	}
 
 	/**
@@ -117,5 +108,16 @@ public class CsvTradesLoader {
 				ticks.remove(i);
 			}
 		}
+	}
+
+	public static void main(String args[]) {
+		TimeSeries series = CsvTradesLoader.loadBitstampSeries();
+
+		System.out.println("Series: " + series.getName() + " (" + series.getPeriodName() + ")");
+		System.out.println("Number of ticks: " + series.getSize());
+		System.out.println("First tick: \n"
+				+ "\tVolume: " + series.getTick(0).getVolume() + "\n"
+				+ "\tNumber of trades: " + series.getTick(0).getTrades() + "\n"
+				+ "\tClose price: " + series.getTick(0).getClosePrice());
 	}
 }
