@@ -56,7 +56,7 @@ public class CsvTradesLoader {
                 beginTime = new DateTime(endInstant);
                 endTime = new DateTime(beginInstant);
             }
-            // Building the empty ticks (every 300 seconds)
+            // Building the empty ticks (every 300 seconds, yeah welcome in Bitcoin world)
             ticks = buildEmptyTicks(beginTime, endTime, 300);
             // Filling the ticks with trades
             for (String[] tradeLine : lines) {
