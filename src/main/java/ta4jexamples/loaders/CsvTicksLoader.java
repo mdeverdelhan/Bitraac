@@ -21,7 +21,7 @@ import org.joda.time.DateTime;
  */
 public class CsvTicksLoader {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * @return a time series from Apple Inc. ticks.
