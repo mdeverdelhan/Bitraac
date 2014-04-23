@@ -56,7 +56,7 @@ public class Quickstart {
         //  - Sell when 5-ticks SMA crosses under 30-ticks SMA
         Strategy ourStrategy = new IndicatorCrossedIndicatorStrategy(shortSma, longSma);
 
-        // Cutomizing our strategy...
+        // Customizing our strategy...
         // We want to buy if the price go below a defined price (e.g $800.00)
         ourStrategy = new SupportStrategy(closePrice, ourStrategy, 800d);
         // And we want to sell if the price looses more than 3%
