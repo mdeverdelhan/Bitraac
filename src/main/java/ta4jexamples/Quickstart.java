@@ -57,7 +57,7 @@ public class Quickstart {
         Strategy ourStrategy = new IndicatorCrossedIndicatorStrategy(shortSma, longSma);
 
         // Cutomizing our strategy...
-        // We want to buy if the price go below a defined price (e.g $800.00)
+        // We want to buy if the price goes below a defined price (e.g $800.00)
         ourStrategy = new SupportStrategy(closePrice, ourStrategy, 800d);
         // And we want to sell if the price looses more than 3%
         ourStrategy = new StopLossStrategy(closePrice, ourStrategy, 3);

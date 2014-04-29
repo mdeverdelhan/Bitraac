@@ -62,14 +62,15 @@ public class IndicatorsToCsv {
         /**
          * Building header
          */
-        StringBuilder sb = new StringBuilder("close,typical,variation,sma8,sma20,ema8,ema20,ppo,roc,rsi,williamsr,atr,sd\n");
+        StringBuilder sb = new StringBuilder("timestamp,close,typical,variation,sma8,sma20,ema8,ema20,ppo,roc,rsi,williamsr,atr,sd\n");
 
         /**
          * Adding indicators values
          */
         final int nbTicks = series.getSize();
         for (int i = 0; i < nbTicks; i++) {
-            sb.append(closePrice.getValue(i)).append(',')
+            sb.append(series.getTick(i).getEndTime().getMillis() / 1000d).append(',')
+            .append(closePrice.getValue(i)).append(',')
             .append(typicalPrice.getValue(i)).append(',')
             .append(priceVariation.getValue(i)).append(',')
             .append(shortSma.getValue(i)).append(',')
