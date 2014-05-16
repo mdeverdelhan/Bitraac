@@ -1,13 +1,5 @@
-# Ta4j examples
+# Old ta4j examples
 
-This repository contains example codes using [ta4j](http://github.com/mdeverdelhan/ta4j) library.
+This repository contains old example codes using [ta4j](http://github.com/mdeverdelhan/ta4j) library. It will be deleted within some time.
 
-## About
-
-#### Support
-
-Ask all questions to [my Twitter account](http://www.twitter.com/marcdeverdelhan).
-
-#### Donations
-
-Bitcoin address: 13BMqpqbzJ62LjMWcPGWrTrdocvGqifdJ3 
+More recent examples can be found on the [ta4j repository](http://github.com/mdeverdelhan/ta4j)
