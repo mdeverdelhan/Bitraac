@@ -25,13 +25,12 @@ import eu.verdelhan.ta4j.indicators.oscillators.StochasticOscillatorKIndicator;
 import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator;
 import eu.verdelhan.ta4j.indicators.trackers.EMAIndicator;
 import eu.verdelhan.ta4j.indicators.trackers.MACDIndicator;
-import eu.verdelhan.ta4j.series.DefaultTimeSeries;
 import eu.verdelhan.ta4j.strategies.AlwaysOperateStrategy;
 import eu.verdelhan.ta4j.strategies.CombinedBuyAndSellStrategy;
 import eu.verdelhan.ta4j.strategies.IndicatorOverIndicatorStrategy;
 import eu.verdelhan.ta4j.strategies.ResistanceStrategy;
 import eu.verdelhan.ta4j.strategies.SupportStrategy;
-import eu.verdelhan.ta4j.ticks.DefaultTick;
+import eu.verdelhan.ta4j.Tick;
 
 public class TTB {
 
@@ -41,7 +40,7 @@ public class TTB {
 
     private static int MAX_NB_TICKS = 80;
 
-    private static ArrayList<DefaultTick> TICKS = new ArrayList<DefaultTick>();
+    private static ArrayList<Tick> TICKS = new ArrayList<Tick>();
 
     public static void main(String[] args) throws IOException {
         System.out.println("STARTED");
@@ -94,7 +93,7 @@ public class TTB {
                 case TRADE:
                     System.out.println("NEW TRADE");
                     addTransactionToTicks((Trade) evt.getPayload());
-                    TimeSeries series = new DefaultTimeSeries(TICKS);
+                    TimeSeries series = new TimeSeries(TICKS);
                     Strategy strategy = buildStrategy(series);
                     boolean buy = strategy.shouldEnter(series.getEnd());
                     boolean sell = strategy.shouldExit(series.getEnd());
@@ -121,17 +120,17 @@ public class TTB {
         DateTime now = new DateTime();
         if (TICKS.isEmpty()) {
             // No tick yet
-            DefaultTick newTick = new DefaultTick(now, now.plusSeconds(TICK_PERIOD));
+            Tick newTick = new Tick(now, now.plusSeconds(TICK_PERIOD));
             newTick.addTrade(trade.getTradableAmount().doubleValue(), trade.getPrice().doubleValue());
             TICKS.add(newTick);
         } else {
-            DefaultTick lastTick = TICKS.get(TICKS.size() - 1);
+            Tick lastTick = TICKS.get(TICKS.size() - 1);
             if (lastTick.inPeriod(now)) {
                 // In the last tick
                 lastTick.addTrade(trade.getTradableAmount().doubleValue(), trade.getPrice().doubleValue());
             } else {
                 // Out of the last tick
-                DefaultTick newTick = new DefaultTick(now, now.plusSeconds(TICK_PERIOD));
+                Tick newTick = new Tick(now, now.plusSeconds(TICK_PERIOD));
                 newTick.addTrade(trade.getTradableAmount().doubleValue(), trade.getPrice().doubleValue());
                 TICKS.add(newTick);
             }
