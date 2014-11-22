@@ -26,7 +26,7 @@ import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator;
 import eu.verdelhan.ta4j.indicators.trackers.EMAIndicator;
 import eu.verdelhan.ta4j.indicators.trackers.MACDIndicator;
 import eu.verdelhan.ta4j.strategies.AlwaysOperateStrategy;
-import eu.verdelhan.ta4j.strategies.CombinedBuyAndSellStrategy;
+import eu.verdelhan.ta4j.strategies.CombinedEntryAndExitStrategy;
 import eu.verdelhan.ta4j.strategies.IndicatorOverIndicatorStrategy;
 import eu.verdelhan.ta4j.strategies.ResistanceStrategy;
 import eu.verdelhan.ta4j.strategies.SupportStrategy;
@@ -81,7 +81,7 @@ public class TTB {
 
         IndicatorOverIndicatorStrategy macdAboveSignaLine = new IndicatorOverIndicatorStrategy(emaMacd, macd);
 
-        return shortEmaAboveLongEma.and(new CombinedBuyAndSellStrategy(support20, resist80)).and(macdAboveSignaLine);
+        return shortEmaAboveLongEma.and(new CombinedEntryAndExitStrategy(support20, resist80)).and(macdAboveSignaLine);
     }
 
     private static void runBot(StreamingExchangeService stream) throws IOException {
