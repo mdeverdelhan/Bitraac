@@ -31,16 +31,17 @@ import eu.verdelhan.ta4j.strategies.IndicatorOverIndicatorStrategy;
 import eu.verdelhan.ta4j.strategies.ResistanceStrategy;
 import eu.verdelhan.ta4j.strategies.SupportStrategy;
 import eu.verdelhan.ta4j.Tick;
+import org.joda.time.Period;
 
 public class TTB {
 
-    private static Twitter TWITTER = TwitterFactory.getSingleton();
+    private static final Twitter TWITTER = TwitterFactory.getSingleton();
 
-    private static int TICK_PERIOD = 300;
+    private static final Period TICK_PERIOD = Period.seconds(300);
 
-    private static int MAX_NB_TICKS = 80;
+    private static final int MAX_NB_TICKS = 80;
 
-    private static ArrayList<Tick> TICKS = new ArrayList<Tick>();
+    private static final ArrayList<Tick> TICKS = new ArrayList<Tick>();
 
     public static void main(String[] args) throws IOException {
         System.out.println("STARTED");
@@ -48,8 +49,7 @@ public class TTB {
         BitstampStreamingConfiguration streamCfg = new BitstampStreamingConfiguration();
         streamCfg.getChannels().add("live_trades");
 
-        // Interested in the public streaming market data feed (no
-        // authentication)
+        // Interested in the public streaming market data feed (no authentication)
         StreamingExchangeService streamService = bitstamp.getStreamingExchangeService(streamCfg);
 
         streamService.connect();
@@ -120,7 +120,7 @@ public class TTB {
         DateTime now = new DateTime();
         if (TICKS.isEmpty()) {
             // No tick yet
-            Tick newTick = new Tick(now, now.plusSeconds(TICK_PERIOD));
+            Tick newTick = new Tick(TICK_PERIOD, now);
             newTick.addTrade(trade.getTradableAmount().doubleValue(), trade.getPrice().doubleValue());
             TICKS.add(newTick);
         } else {
@@ -130,7 +130,7 @@ public class TTB {
                 lastTick.addTrade(trade.getTradableAmount().doubleValue(), trade.getPrice().doubleValue());
             } else {
                 // Out of the last tick
-                Tick newTick = new Tick(now, now.plusSeconds(TICK_PERIOD));
+                Tick newTick = new Tick(TICK_PERIOD, now);
                 newTick.addTrade(trade.getTradableAmount().doubleValue(), trade.getPrice().doubleValue());
                 TICKS.add(newTick);
             }

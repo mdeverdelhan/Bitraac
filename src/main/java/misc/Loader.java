@@ -15,6 +15,7 @@ import org.joda.time.Instant;
 import au.com.bytecode.opencsv.CSVReader;
 import eu.verdelhan.ta4j.Tick;
 import eu.verdelhan.ta4j.TimeSeries;
+import org.joda.time.Period;
 
 public class Loader {
 	
@@ -56,7 +57,7 @@ public class Loader {
                 endTime = new DateTime(beginInstant);
             }
             // Building the empty ticks 
-            ticks = buildEmptyTicks(beginTime, endTime, timeframe);
+            ticks = buildEmptyTicks(beginTime, endTime, Period.seconds(timeframe));
             // Filling the ticks with trades
             for (String[] tradeLine : lines) {
                 DateTime tradeTimestamp = new DateTime(Long.parseLong(tradeLine[0]) * 1000);
@@ -79,18 +80,18 @@ public class Loader {
      * Builds a list of empty ticks.
      * @param beginTime the begin time of the whole period
      * @param endTime the end time of the whole period
-     * @param duration the tick duration (in seconds)
+     * @param duration the tick duration
      * @return the list of empty ticks
      */
-    private static List<Tick> buildEmptyTicks(DateTime beginTime, DateTime endTime, int duration) {
+    private static List<Tick> buildEmptyTicks(DateTime beginTime, DateTime endTime, Period duration) {
 
         List<Tick> emptyTicks = new ArrayList<Tick>();
 
         DateTime tickBeginTime = beginTime;
         DateTime tickEndTime;
         do {
-            tickEndTime = tickBeginTime.plusSeconds(duration);
-            emptyTicks.add(new Tick(tickBeginTime, tickEndTime));
+            tickEndTime = tickBeginTime.plus(duration);
+            emptyTicks.add(new Tick(duration, tickEndTime));
             tickBeginTime = tickEndTime;
         } while (tickEndTime.isBefore(endTime));
 

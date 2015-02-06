@@ -34,7 +34,7 @@ public class Analysis {
 
     public Analysis(int timeframe) {
         this.series = Loader.loadSeries(timeframe);
-        System.out.println("Series loaded ("+series.getSize()+")");
+        System.out.println("Series loaded ("+series.getTickCount()+")");
         this.timeframe = timeframe;
         fillMap();
     }
@@ -126,7 +126,7 @@ public class Analysis {
 	
 	private String buildData() {
         StringBuilder sb = new StringBuilder();
-		final int nbTicks = series.getSize();
+		final int nbTicks = series.getTickCount();
         for (int i = 0; i < nbTicks; i++) {
             System.out.println("Tick: "+i);
             sb.append(series.getTick(i).getEndTime().getMillis() / 1000d).append(',');
