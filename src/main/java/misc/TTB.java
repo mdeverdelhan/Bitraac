@@ -16,21 +16,12 @@ import com.xeiam.xchange.bitstamp.service.streaming.BitstampStreamingConfigurati
 import com.xeiam.xchange.dto.marketdata.Trade;
 import com.xeiam.xchange.service.streaming.ExchangeEvent;
 import com.xeiam.xchange.service.streaming.StreamingExchangeService;
+import eu.verdelhan.ta4j.Order;
 
-import eu.verdelhan.ta4j.OperationType;
 import eu.verdelhan.ta4j.Strategy;
 import eu.verdelhan.ta4j.TimeSeries;
-import eu.verdelhan.ta4j.indicators.oscillators.StochasticOscillatorDIndicator;
-import eu.verdelhan.ta4j.indicators.oscillators.StochasticOscillatorKIndicator;
-import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator;
-import eu.verdelhan.ta4j.indicators.trackers.EMAIndicator;
-import eu.verdelhan.ta4j.indicators.trackers.MACDIndicator;
-import eu.verdelhan.ta4j.strategies.AlwaysOperateStrategy;
-import eu.verdelhan.ta4j.strategies.CombinedEntryAndExitStrategy;
-import eu.verdelhan.ta4j.strategies.IndicatorOverIndicatorStrategy;
-import eu.verdelhan.ta4j.strategies.ResistanceStrategy;
-import eu.verdelhan.ta4j.strategies.SupportStrategy;
 import eu.verdelhan.ta4j.Tick;
+import eu.verdelhan.ta4j.trading.rules.BooleanRule;
 import org.joda.time.Period;
 
 public class TTB {
@@ -63,25 +54,7 @@ public class TTB {
             throw new IllegalArgumentException("Series cannot be null");
         }
 
-        ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        EMAIndicator shortEma = new EMAIndicator(closePrice, 9);
-        EMAIndicator longEma = new EMAIndicator(closePrice, 26);
-
-        IndicatorOverIndicatorStrategy shortEmaAboveLongEma = new IndicatorOverIndicatorStrategy(longEma, shortEma);
-
-        StochasticOscillatorKIndicator stochasticOscillK = new StochasticOscillatorKIndicator(series, 14);
-        StochasticOscillatorDIndicator stochasticOscillD = new StochasticOscillatorDIndicator(stochasticOscillK);
-
-        SupportStrategy support20 = new SupportStrategy(stochasticOscillK, new AlwaysOperateStrategy().opposite(), 20);
-        ResistanceStrategy resist80 = new ResistanceStrategy(stochasticOscillK, new AlwaysOperateStrategy().opposite(),
-                80);
-
-        MACDIndicator macd = new MACDIndicator(closePrice, 9, 26);
-        EMAIndicator emaMacd = new EMAIndicator(macd, 18);
-
-        IndicatorOverIndicatorStrategy macdAboveSignaLine = new IndicatorOverIndicatorStrategy(emaMacd, macd);
-
-        return shortEmaAboveLongEma.and(new CombinedEntryAndExitStrategy(support20, resist80)).and(macdAboveSignaLine);
+        return new Strategy(BooleanRule.TRUE, BooleanRule.TRUE);
     }
 
     private static void runBot(StreamingExchangeService stream) throws IOException {
@@ -141,10 +114,10 @@ public class TTB {
         }
     }
 
-    private static void tweet(OperationType operationType) {
-        if (operationType != null) {
+    private static void tweet(Order.OrderType orderType) {
+        if (orderType != null) {
             try {
-                if (operationType == OperationType.BUY) {
+                if (orderType == Order.OrderType.BUY) {
                     TWITTER.updateStatus("Buy signal on #Bitstamp! #bitcoin #btc /cc @MarcdeVerdelhan");
                 } else {
                     TWITTER.updateStatus("Sell signal on #Bitstamp! #bitcoin #btc /cc @MarcdeVerdelhan");
