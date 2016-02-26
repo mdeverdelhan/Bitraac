@@ -1,6 +1,7 @@
 package misc.web;
 
 import javax.inject.Inject;
+import misc.services.ShirtService;
 import misc.services.TwitterService;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
@@ -11,9 +12,12 @@ public class MiscController {
 
     private TwitterService twitterService;
     
+    private ShirtService shirtService;
+    
     @Inject
-    public MiscController(TwitterService twitterService) {
+    public MiscController(TwitterService twitterService, ShirtService shirtService) {
         this.twitterService = twitterService;
+        this.shirtService = shirtService;
     }
     
     @RequestMapping("/")
@@ -27,4 +31,12 @@ public class MiscController {
     String trend() {
         return twitterService.getTrends().get(0);
     }
+    
+    @RequestMapping("/shirt")
+    @ResponseBody
+    String shirt() {
+        return shirtService.category();
+    }
+    
+    
 }

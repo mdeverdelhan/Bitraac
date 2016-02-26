@@ -24,4 +24,8 @@ public class TwitterService {
                 .map(t -> t.getName())
                 .collect(Collectors.toList());
     }
+    
+    public void tweet() {
+        // @TODO
+    }
 }
