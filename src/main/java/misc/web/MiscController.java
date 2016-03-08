@@ -32,6 +32,14 @@ public class MiscController {
         return twitterService.getTrends().get(0);
     }
     
+    @RequestMapping("/besttweet")
+    @ResponseBody
+    String besttweet() {
+        String trendName = twitterService.getTrends().get(0);
+        String tweetText = twitterService.getMostPopularTweetText(trendName);
+        return tweetText;
+    }
+    
     @RequestMapping("/shirt")
     @ResponseBody
     String shirt() {
