@@ -1,7 +1,7 @@
 package misc.services;
 
 import javax.inject.Inject;
-import misc.model.Category;
+import misc.sp.Category;
 import org.springframework.stereotype.*;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;

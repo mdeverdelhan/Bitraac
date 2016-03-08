@@ -1,5 +1,5 @@
 
-package misc.model;
+package misc.sp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
