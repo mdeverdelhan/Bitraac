@@ -42,6 +42,13 @@
             <scope>runtime</scope>
         </dependency>
         
+        <!-- For payments -->
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>1.42.0</version>
+        </dependency>
+        
         <!-- To consume REST/JSON web services -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
