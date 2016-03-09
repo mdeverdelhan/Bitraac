@@ -10,15 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MiscController {
 
+    @Inject
     private TwitterService twitterService;
     
-    private ShirtService shirtService;
-    
     @Inject
-    public MiscController(TwitterService twitterService, ShirtService shirtService) {
-        this.twitterService = twitterService;
-        this.shirtService = shirtService;
-    }
+    private ShirtService shirtService;
     
     @RequestMapping("/")
     @ResponseBody

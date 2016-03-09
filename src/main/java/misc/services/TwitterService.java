@@ -15,12 +15,8 @@ public class TwitterService {
 
     private static final int MAX_TWEETS_COUNT = 10;
     
-    private Twitter twitter;
-    
     @Inject
-    public TwitterService(Twitter twitter) {
-        this.twitter = twitter;
-    }
+    private Twitter twitter;
     
     public List<String> getTrends() {
         long woeid = 1l;

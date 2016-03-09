@@ -16,12 +16,8 @@ public class TwitterTasks {
     @Inject
     private TrendDesignRepository trendDesignRepository;
     
-    private TwitterService twitterService;
-    
     @Inject
-    public TwitterTasks(TwitterService twitterService) {
-        this.twitterService = twitterService;
-    }
+    private TwitterService twitterService;
     
     @Scheduled(fixedDelay = 5000)
     void storeTrends() {
