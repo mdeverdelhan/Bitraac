@@ -1,10 +1,11 @@
 package misc.web;
 
 import javax.inject.Inject;
+import misc.model.TrendDesign;
 import misc.services.ShirtService;
 import misc.services.TwitterService;
-import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -42,5 +43,15 @@ public class MiscController {
         return shirtService.category();
     }
     
+    @RequestMapping(value="/design", method=RequestMethod.GET)
+    public String trendDesignForm(Model model) {
+        model.addAttribute("trendDesign", new TrendDesign());
+        return "design";
+    }
     
+    @RequestMapping(value="/design", method=RequestMethod.POST)
+    public String trendDesignSubmit(@ModelAttribute TrendDesign trendDesign, Model model) {
+        model.addAttribute("trendDesign", trendDesign);
+        return "result";
+    }
 }
