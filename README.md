@@ -14,3 +14,7 @@
   * https://groups.google.com/forum/#!category-topic/openhab/AinJdyyDtG0
   * https://forum.athom.com/discussion/363/io-homecontrol
   * https://gist.github.com/nickma82/dc982d86813eb210dde2631c409e80d9
+
+# Ikea Ansluta
+
+  * https://www.google.fr/search?q=api+ansluta+ikea&ie=utf-8&oe=utf-8&gws_rd=cr&ei=m-fGV-iQBMy5acLDndgE#q=protocol+ansluta+ikea
