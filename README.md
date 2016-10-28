@@ -20,3 +20,4 @@
   * https://www.google.fr/search?q=api+ansluta+ikea&ie=utf-8&oe=utf-8&gws_rd=cr&ei=m-fGV-iQBMy5acLDndgE#q=protocol+ansluta+ikea
   * https://github.com/tjanson/IKEA-Ansluta
   * http://www.nemcon.nl/blog2/2016/10/1 && http://www.nemcon.nl/blog2/devlist
+  * https://www.domoticz.com/forum/viewtopic.php?f=17&t=7584&start=20
