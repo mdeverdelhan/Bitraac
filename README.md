@@ -22,3 +22,5 @@
   * https://github.com/NDBCK/Ansluta-Remote-Controller
   * http://www.nemcon.nl/blog2/2016/10/1 && http://www.nemcon.nl/blog2/devlist
   * https://www.domoticz.com/forum/viewtopic.php?f=17&t=7584&start=20
+
+  * http://tmrh20.github.io/RF24/
