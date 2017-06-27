@@ -24,3 +24,9 @@
   * https://www.domoticz.com/forum/viewtopic.php?f=17&t=7584&start=20
 
   * http://tmrh20.github.io/RF24/
+  
+# Portal
+
+  * https://www.intratone.fr/badges-et-telecommandes/telecommande-2-canaux/436-telecommande-2-canaux.html
+  * http://robinterral.fr/2017/03/18/ouverture-de-mon-portail-avec-domoticz-et-arduino-badge-intratone/
+  * http://www.telecommande.info/pro-4t/notice_telecopieuse_PRO-4T_complete.pdf
