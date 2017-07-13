@@ -24,6 +24,7 @@
   * https://www.domoticz.com/forum/viewtopic.php?f=17&t=7584&start=20
 
   * http://tmrh20.github.io/RF24/
+  * https://www.element14.com/community/community/raspberry-pi/raspberrypi2/blog/2015/04/07/raspberry-pi-2-gpio-usage-with-nrf24l01-arduino
   
 # Portal
 
