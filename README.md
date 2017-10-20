@@ -26,6 +26,7 @@
   * http://tmrh20.github.io/RF24/
   * https://www.element14.com/community/community/raspberry-pi/raspberrypi2/blog/2015/04/07/raspberry-pi-2-gpio-usage-with-nrf24l01-arduino
   * http://invent.module143.com/daskal_tutorial/raspberry-pi-3-wireless-pi-to-pi-python-communication-with-nrf24l01/
+  * https://github.com/msloth/contiki-launchpad/commit/a951b28808d0eea5b8e069c0db9ff30271e9b6ba
   
 # Portal
 
