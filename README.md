@@ -5,6 +5,13 @@
   
   * https://dev.twitter.com/rest/reference/get/statuses/oembed
 
+# Contract
+
+  * http://www.recrutons.fr/contrat-de-prestation-de-services-freelance.html
+  * http://www.easypartner.fr/blog_%C3%8Atre-freelance-et-bien-choisir-ses-contrats_30_1
+  * http://cgole.free.fr/page16/page2/files/Contrat%20services.pdf
+  * http://www.contrat-agile.org/contrats/Contrat_Agile_V1.1.pdf
+
 # RE IO HC
 
   * https://community.openhab.org/t/is-io-homecontrol-decodng-feasible/12145
